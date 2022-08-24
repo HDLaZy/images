@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lk.hdlazy_images.mapper.ImageMapper">
+
+
+    <resultMap id="BaseImageMap" type="com.lk.hdlazy_images.pojo.ImageInfo">
+        <id property="imageId" column="image_id"/>
+        <result property="imageName" column="image_name"/>
+        <result property="contentType" column="content_type"/>
+        <result property="md5" column="md5"/>
+        <result property="path" column="path"/>
+        <result property="size" column="size"/>
+        <result property="uploadTime" column="upload_time"/>
+    </resultMap>
+
+    <!--插入照片-->
+    <insert id="insertImage" >
+        insert into image_table values (null,#{imageName},#{size},#{uploadTime},#{md5},#{contentType},#{path})
+    </insert>
+    <!--根据ID删除-->
+    <delete id="deleteImage">
+        delete from image_table where image_id = #{id}
+    </delete>
+    <!--获取照片列表-->
+    <select id="listImages"  resultMap="BaseImageMap">
+        select * from image_table
+    </select>
+    <!--根据ID获取照片-->
+    <select id="selectImageById" resultMap="BaseImageMap">
+        select * from image_table where image_id=#{id}
+    </select>
+    <!--根据md5的值查询照片-->
+    <select id="selectImageByMD5" resultMap="BaseImageMap">
+        select * from image_table where md5=#{md5}
+    </select>
+</mapper>
